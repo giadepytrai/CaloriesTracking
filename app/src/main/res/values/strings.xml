@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calorie Tracker</string>
+    
+    <!-- User Profile Screen -->
+    <string name="user_information">User Information</string>
+    <string name="height">Height (cm)</string>
+    <string name="weight">Weight (kg)</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="activity_level">Activity Level</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="go_to_tracker">Go to Calorie Tracker</string>
+    
+    <!-- Activity Levels -->
+    <string name="activity_sedentary">Sedentary (little or no exercise)</string>
+    <string name="activity_light">Light (light exercise 1-3 days/week)</string>
+    <string name="activity_moderate">Moderate (moderate exercise 3-5 days/week)</string>
+    <string name="activity_active">Active (hard exercise 6-7 days/week)</string>
+    <string name="activity_very_active">Very Active (very hard exercise &amp; physical job)</string>
+    
+    <!-- BMI Categories -->
+    <string name="bmi_category">BMI Category</string>
+    <string name="bmi_underweight">Underweight</string>
+    <string name="bmi_normal">Normal weight</string>
+    <string name="bmi_overweight">Overweight</string>
+    <string name="bmi_obese">Obese</string>
+    
+    <!-- Calorie Tracker Screen -->
+    <string name="calorie_tracker">Calorie Tracker</string>
+    <string name="today_food">Today\'s Food</string>
+    <string name="total_calories">Total Calories</string>
+    <string name="daily_calorie_needs">Daily Calorie Needs</string>
+    <string name="add_food">Add Food</string>
+    
+    <!-- Add Food Dialog -->
+    <string name="add_food_item">Add Food Item</string>
+    <string name="food_name">Food Name</string>
+    <string name="calories">Calories</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    
+    <!-- Navigation -->
+    <string name="nav_profile">Profile</string>
+    <string name="nav_tracker">Tracker</string>
+    
+    <!-- Units -->
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_years">years</string>
+</resources>
