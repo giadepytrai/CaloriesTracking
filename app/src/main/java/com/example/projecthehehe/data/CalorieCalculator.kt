@@ -39,4 +39,21 @@ object CalorieCalculator {
 
         return bmr * activityMultiplier
     }
-} 
+
+    fun calculateCaloriesForGoal(
+        height: Float,
+        weight: Float,
+        age: Int,
+        gender: Gender,
+        activityLevel: ActivityLevel,
+        fitnessGoal: FitnessGoal
+    ): Float {
+        val maintenanceCalories = calculateDailyCalorieNeeds(height, weight, age, gender, activityLevel)
+
+        return when (fitnessGoal) {
+            FitnessGoal.LOSE_WEIGHT -> maintenanceCalories - 500f // Giảm 500 kcal/ngày để giảm ~0.5kg/tuần
+            FitnessGoal.MAINTAIN_WEIGHT -> maintenanceCalories
+            FitnessGoal.GAIN_WEIGHT -> maintenanceCalories + 500f // Tăng 500 kcal/ngày để tăng ~0.5kg/tuần
+        }
+    }
+}

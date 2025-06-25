@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.projecthehehe.R
 import com.example.projecthehehe.data.ActivityLevel
 import com.example.projecthehehe.data.Gender
+import com.example.projecthehehe.data.FitnessGoal
 import com.example.projecthehehe.ui.components.*
 import com.example.projecthehehe.viewmodel.CalorieTrackerViewModel
 
@@ -23,6 +24,7 @@ fun UserProfileScreen(
     var age by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf(Gender.MALE) }
     var activityLevel by remember { mutableStateOf(ActivityLevel.MODERATE) }
+    var fitnessGoal by remember { mutableStateOf(FitnessGoal.MAINTAIN_WEIGHT) }
 
     val userProfile by viewModel.userProfile.collectAsState()
     val bmi by viewModel.bmi.collectAsState()
@@ -36,6 +38,7 @@ fun UserProfileScreen(
             age = profile.age.toString()
             gender = profile.gender
             activityLevel = profile.activityLevel
+            fitnessGoal = profile.fitnessGoal
         }
     }
 
@@ -56,17 +59,19 @@ fun UserProfileScreen(
             age = age,
             gender = gender,
             activityLevel = activityLevel,
+            fitnessGoal = fitnessGoal,
             onHeightChange = { height = it },
             onWeightChange = { weight = it },
             onAgeChange = { age = it },
             onGenderChange = { gender = it },
             onActivityLevelChange = { activityLevel = it },
+            onFitnessGoalChange = { fitnessGoal = it },
             onSaveClick = {
                 val heightFloat = height.toFloatOrNull()
                 val weightFloat = weight.toFloatOrNull()
                 val ageInt = age.toIntOrNull()
                 if (heightFloat != null && weightFloat != null && ageInt != null) {
-                    viewModel.updateUserProfile(heightFloat, weightFloat, ageInt, gender, activityLevel)
+                    viewModel.updateUserProfile(heightFloat, weightFloat, ageInt, gender, activityLevel, fitnessGoal)
                 }
             }
         )

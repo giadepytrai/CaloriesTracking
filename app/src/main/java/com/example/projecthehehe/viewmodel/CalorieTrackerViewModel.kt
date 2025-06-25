@@ -8,6 +8,7 @@ import com.example.projecthehehe.data.FoodItem
 import com.example.projecthehehe.data.UserProfile
 import com.example.projecthehehe.data.Gender
 import com.example.projecthehehe.data.ActivityLevel
+import com.example.projecthehehe.data.FitnessGoal
 import com.example.projecthehehe.data.CalorieCalculator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -57,28 +58,26 @@ class CalorieTrackerViewModel(application: Application) : AndroidViewModel(appli
             _userProfile.value = profile
             profile?.let { updateCalculations(it) }
         }
-    }
-
-    private fun updateCalculations(profile: UserProfile) {
+    }    private fun updateCalculations(profile: UserProfile) {
         val bmi = CalorieCalculator.calculateBMI(profile.height, profile.weight)
         _bmi.value = bmi
         _bmiCategory.value = CalorieCalculator.getBMICategory(bmi)
 
-        _dailyCalorieNeeds.value = CalorieCalculator.calculateDailyCalorieNeeds(
+        _dailyCalorieNeeds.value = CalorieCalculator.calculateCaloriesForGoal(
             profile.height,
             profile.weight,
             profile.age,
             profile.gender,
-            profile.activityLevel
+            profile.activityLevel,
+            profile.fitnessGoal
         )
-    }
-
-    fun updateUserProfile(
+    }    fun updateUserProfile(
         height: Float,
         weight: Float,
         age: Int,
         gender: Gender,
-        activityLevel: ActivityLevel
+        activityLevel: ActivityLevel,
+        fitnessGoal: FitnessGoal = FitnessGoal.MAINTAIN_WEIGHT
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val profile = UserProfile(
@@ -86,14 +85,13 @@ class CalorieTrackerViewModel(application: Application) : AndroidViewModel(appli
                 weight = weight,
                 age = age,
                 gender = gender,
-                activityLevel = activityLevel
+                activityLevel = activityLevel,
+                fitnessGoal = fitnessGoal
             )
             userProfileDao.insertUserProfile(profile)
             loadUserProfile() // Reload profile after update
         }
-    }
-
-    fun addFoodItem(name: String, calories: Int) {
+    }fun addFoodItem(name: String, calories: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val foodItem = FoodItem(
                 name = name,
@@ -103,6 +101,12 @@ class CalorieTrackerViewModel(application: Application) : AndroidViewModel(appli
             foodDao.insertFoodItem(foodItem)
             loadTodayFoodItems() // Reload food items after adding
         }
+    }
+
+    // Thêm món ăn từ API vào calorie tracker
+    fun addFoodFromApi(foodDisplayItem: com.example.projecthehehe.data.api.FoodDisplayItem) {
+        val calories = foodDisplayItem.calories ?: 0
+        addFoodItem(foodDisplayItem.title, calories)
     }
 
     fun deleteFoodItem(foodItem: FoodItem) {

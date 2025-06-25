@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.projecthehehe.R
 import com.example.projecthehehe.data.ActivityLevel
 import com.example.projecthehehe.data.Gender
+import com.example.projecthehehe.data.FitnessGoal
 
 @Composable
 fun UserInfoForm(
@@ -20,11 +21,13 @@ fun UserInfoForm(
     age: String,
     gender: Gender,
     activityLevel: ActivityLevel,
+    fitnessGoal: FitnessGoal,
     onHeightChange: (String) -> Unit,
     onWeightChange: (String) -> Unit,
     onAgeChange: (String) -> Unit,
     onGenderChange: (Gender) -> Unit,
     onActivityLevelChange: (ActivityLevel) -> Unit,
+    onFitnessGoalChange: (FitnessGoal) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -91,6 +94,25 @@ fun UserInfoForm(
                         ActivityLevel.MODERATE -> stringResource(R.string.activity_moderate)
                         ActivityLevel.VERY_ACTIVE -> stringResource(R.string.activity_active)
                         ActivityLevel.EXTRA_ACTIVE -> stringResource(R.string.activity_very_active)
+                    }
+                )
+            }        }
+
+        Text("Fitness Goal", style = MaterialTheme.typography.titleMedium)
+        FitnessGoal.values().forEach { goal ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RadioButton(
+                    selected = fitnessGoal == goal,
+                    onClick = { onFitnessGoalChange(goal) }
+                )
+                Text(
+                    when (goal) {
+                        FitnessGoal.LOSE_WEIGHT -> "Lose Weight (-500 kcal/day)"
+                        FitnessGoal.MAINTAIN_WEIGHT -> "Maintain Weight"
+                        FitnessGoal.GAIN_WEIGHT -> "Gain Weight (+500 kcal/day)"
                     }
                 )
             }

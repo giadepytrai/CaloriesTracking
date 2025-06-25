@@ -11,5 +11,6 @@ data class UserProfile(
     val weight: Float, // kg
     val age: Int,
     val gender: Gender,
-    val activityLevel: ActivityLevel
+    val activityLevel: ActivityLevel,
+    val fitnessGoal: FitnessGoal = FitnessGoal.MAINTAIN_WEIGHT
 ) 
